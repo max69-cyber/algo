@@ -10,6 +10,7 @@ fun main() {
     println(factorial(20))
     println(forFactorial(20))
     println(tailrecFactorial(20))
+    println(tailrecFactorialEquivalent(20))
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
@@ -84,4 +85,18 @@ tailrec fun tailrecFactorial(num: Long, acc: Long = 1L): Long {
     }
 
     return tailrecFactorial(num - 1, acc * num)
+}
+// that's the same
+fun tailrecFactorialEquivalent(num: Long): Long {
+    require(num >= 0)
+
+    var numVar = num
+    var accVar = 1L
+
+    while(numVar > 1L) {
+        accVar *= numVar
+        numVar -= 1
+    }
+
+    return accVar
 }
