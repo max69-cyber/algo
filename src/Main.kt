@@ -19,6 +19,8 @@ fun main() {
     println()
     getFibonacciNumbersRecursiveMemo(10).forEach { print("$it ") }
     println()
+    getFibonacciNumbersWithFor(10).forEach { print("$it ") }
+    println()
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
@@ -176,6 +178,21 @@ fun getFibonacciNumbersRecursiveMemo(count: Int): IntArray {
     }
 
     helper(count)
+    return res
+}
+
+// here time is O(n) and memory is O(n), without recursive call stack
+fun getFibonacciNumbersWithFor(count: Int): IntArray {
+    require(count > 0)
+
+    val res = IntArray(count) { -1 }
+    res[0] = 0
+    if (count > 1) res[1] = 1
+
+    for (index in 2..<count) {
+        res[index] = res[index - 1] + res[index - 2]
+    }
+
     return res
 }
 
