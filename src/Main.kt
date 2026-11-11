@@ -12,7 +12,9 @@ fun main() {
     println(tailrecFactorial(20))
     println(tailrecFactorialEquivalent(20))
 
-    println(getFibonacciNumberByPos(5))
+    println(getFibonacciNumberByPos(10))
+    println(getFibonacciNumberByPosMemo(10))
+
     getFibonacciNumbersRecursive(10).forEach { print("$it ") }
     println()
 }
@@ -114,6 +116,25 @@ fun getFibonacciNumberByPos(index: Int): Int {
     val res = getFibonacciNumberByPos(index - 1) + getFibonacciNumberByPos(index - 2)
     return res
 }
+// counts sum one time for one Fibonacci number, so the time is O(n) AVG, and the memory is O(n).
+fun getFibonacciNumberByPosMemo(index: Int): Int {
+    require(index > 0)
+
+    val memory = HashMap<Int, Int>()
+
+    fun helper(i: Int): Int {
+        if (i == 1 || i == 2) return i - 1
+        // hash map get counts as O(1) average
+        if (memory.containsKey(i)) return memory.getValue(i)
+
+        val sum = helper(i - 1) + helper(i - 2)
+        memory[i] = sum
+
+        return sum
+    }
+
+    return helper(index)
+}
 
 // returns array of defined length with Fibonacci numbers. time: O(n^2), mem: O(n) (a*n for elements of array, + b*n for calls stack)
 fun getFibonacciNumbersRecursive(count: Int): IntArray {
@@ -132,4 +153,5 @@ fun getFibonacciNumbersRecursive(count: Int): IntArray {
     helper(count)
     return res
 }
+
 
