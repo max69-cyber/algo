@@ -17,6 +17,8 @@ fun main() {
 
     getFibonacciNumbersRecursive(10).forEach { print("$it ") }
     println()
+    getFibonacciNumbersRecursiveMemo(10).forEach { print("$it ") }
+    println()
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
@@ -116,7 +118,8 @@ fun getFibonacciNumberByPos(index: Int): Int {
     val res = getFibonacciNumberByPos(index - 1) + getFibonacciNumberByPos(index - 2)
     return res
 }
-// counts sum one time for one Fibonacci number, so the time is O(n) AVG, and the memory is O(n).
+// counts sum one time for one Fibonacci number,
+// so the time is O(n) AVG, and the memory is O(n), but in reality we need more place for map.
 fun getFibonacciNumberByPosMemo(index: Int): Int {
     require(index > 0)
 
@@ -136,7 +139,8 @@ fun getFibonacciNumberByPosMemo(index: Int): Int {
     return helper(index)
 }
 
-// returns array of defined length with Fibonacci numbers. time: O(n^2), mem: O(n) (a*n for elements of array, + b*n for calls stack)
+// returns array of defined length with Fibonacci numbers.
+// time: O(n^2), mem: O(n) (a*n for elements of array, + b*n for calls stack)
 fun getFibonacciNumbersRecursive(count: Int): IntArray {
     require(count > 0)
 
@@ -146,6 +150,27 @@ fun getFibonacciNumbersRecursive(count: Int): IntArray {
 
     fun helper(index: Int): Int {
         if (index == 1 || index == 2) return index - 1
+        //println("computing...")
+        res[index - 1] = helper(index - 1) + helper(index - 2)
+        return res[index - 1]
+    }
+
+    helper(count)
+    return res
+}
+// time is O(n) after optimization, memory is still O(n).
+fun getFibonacciNumbersRecursiveMemo(count: Int): IntArray {
+    require(count > 0)
+
+    val res = IntArray(count) { -1 }
+    res[0] = 0
+    if (count > 1) res[1] = 1
+
+    fun helper(index: Int): Int {
+        if (index == 1 || index == 2) return index - 1
+        if (res[index - 1] != -1) return res[index - 1]
+        //println("computing...")
+
         res[index - 1] = helper(index - 1) + helper(index - 2)
         return res[index - 1]
     }
