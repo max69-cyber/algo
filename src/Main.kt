@@ -26,6 +26,8 @@ fun main() {
     arrayToSort.bubbleSort()
     arrayToSort.forEach { print("$it ") }
     println()
+
+    println(BigOExamples.binarySearch(arrayToSort, 4))
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
