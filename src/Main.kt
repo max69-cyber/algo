@@ -21,6 +21,11 @@ fun main() {
     println()
     getFibonacciNumbersWithFor(10).forEach { print("$it ") }
     println()
+
+    val arrayToSort = intArrayOf(5, 3, 2, 128, 4, 1, 1)
+    arrayToSort.bubbleSort()
+    arrayToSort.forEach { print("$it ") }
+    println()
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
@@ -196,4 +201,16 @@ fun getFibonacciNumbersWithFor(count: Int): IntArray {
     return res
 }
 
+// time O(n^2), memory O(1)
+fun IntArray.bubbleSort() {
+    for (i in this.indices) {
+        for (j in 1..<this.size - i) {
+            if (this[j - 1] > this[j]) {
+                val temp = this[j]
+                this[j] = this[j - 1]
+                this[j - 1] = temp
+            }
+        }
+    }
+}
 
