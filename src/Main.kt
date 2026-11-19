@@ -28,6 +28,11 @@ fun main() {
     println()
 
     println(BigOExamples.binarySearch(arrayToSort, 4))
+
+    BigOExamples.merge(intArrayOf(1, 3, 5, 7, 10, 12), intArrayOf(2, 4, 6, 8, 9, 11, 12, 13)).forEach { print("$it ") }
+    println()
+    BigOExamples.mergeSort(intArrayOf(3, 4, 7, 14, 3, 2, 19, 8, 34)).forEach { print("$it ") }
+    println()
 }
 
 // вернуть новый перевернутый массив (O(n) где n - кол-во элементов и по памяти и по времени)
